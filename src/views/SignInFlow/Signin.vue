@@ -1,26 +1,97 @@
 <template>
-    <div class="container">
-        <div class="request">Don't have a Dashboard account?
+    <div
+        class="container"
+        :class="{
+            'light-background': !isDarkMode,
+            'dark-background': isDarkMode
+        }"
+    >
+        <div
+            class="request"
+            :class="{'light-request': isDarkMode, 'dark-request': !isDarkMode}"
+        >Don't have a Dashboard account?
             <router-link to="/request">Request an account</router-link>
         </div>
         <div class="login">
-            <img src="@/assets/logo-light.svg" alt="logo">
-            <h4>Sign into the Dashboard</h4>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
+            <img src="@/assets/logo-light.svg" alt="logo" v-show="isDarkMode">
+            <img src="@/assets/logo-dark.svg" alt="logo" v-show="!isDarkMode">
+            <h4
+                :class="{ 'light-text': isDarkMode, 'dark-text': !isDarkMode }"
+            >Sign into the Dashboard</h4>
+            <input
+                type="email"
+                placeholder="Email"
+                :class="{'light-field': isDarkMode, 'dark-field': !isDarkMode}"
+            >
+            <input
+                type="password"
+                placeholder="Password"
+                :class="{'light-field': isDarkMode, 'dark-field': !isDarkMode}"
+            >
             <button>Sign In</button>
-            <router-link to="/recover">Forgot your password?</router-link>
+            <router-link
+                to="/recover"
+                :class="{'light-link': isDarkMode, 'dark-link': !isDarkMode}"
+            >Forgot your password?</router-link>
+            <button @click="toggleDarkMode">Toggle</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Signin"
+    name: "Signin",
+    data() {
+        return {
+            isDarkMode: true
+        };
+    },
+    methods: {
+        toggleDarkMode() {
+            this.isDarkMode = !this.isDarkMode;
+            document.body.style.background = this.isDarkMode
+                ? "#212c4f"
+                : "#f0f3f5";
+        }
+    }
 };
 </script>
 
 <style scoped lang="scss">
+.light-background {
+    background-color: $light-gray;
+}
+
+.dark-background {
+    background-color: $dark-blue;
+}
+
+.light-text {
+    color: $white;
+}
+
+.dark-text {
+    color: $black;
+}
+
+.light-field {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+.dark-field {
+    background: rgba(198, 208, 235, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+    }
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -80,20 +151,36 @@ a {
     line-height: 25px;
     font-size: 16px;
     text-align: center;
-
-    color: rgba(255, 255, 255, 0.3);
     text-decoration: none;
+}
+
+.light-link {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.dark-link {
+    color: rgba(0, 0, 0, 0.3);
 }
 
 .request {
     position: absolute;
     top: 40px;
     right: 40px;
+}
 
+.light-request {
     color: rgba(255, 255, 255, 0.3);
 
     a {
-        color: white;
+        color: $white;
+    }
+}
+
+.dark-request {
+    color: rgba(0, 0, 0, 0.3);
+
+    a {
+        color: $black;
     }
 }
 </style>
