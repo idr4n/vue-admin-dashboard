@@ -36,6 +36,6 @@ export default new Router({
             path: '/recover',
             name: 'recover',
             component: Recover
-        },
+        }
     ]
 });

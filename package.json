@@ -31,11 +31,9 @@
         },
         "extends": [
             "plugin:vue/essential",
-            "@vue/prettier"
+            "eslint:recommended"
         ],
-        "rules": {
-            "indent": 4
-        },
+        "rules": {},
         "parserOptions": {
             "parser": "babel-eslint"
         }
